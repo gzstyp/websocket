@@ -24,8 +24,8 @@ public class SocketSessionRegistry{
      * @param user
      * @return
      */
-    public Set<String> getSessionIds(String user){
-        Set set = (Set) this.userSessionIds.get(user);
+    public Set<String> getSessionIds(final String user){
+        final Set set = (Set) this.userSessionIds.get(user);
         return set != null ? set : Collections.emptySet();
     }
 

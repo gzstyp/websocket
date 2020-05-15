@@ -88,7 +88,7 @@
 
         function sendName(){
             if(stompClient == null || stompClient == undefined)return;//提示先连接服务器
-            stompClient.send("/app/msg/hellosingle", {}, JSON.stringify({'name': $("#name").val(),'id':'ricky'}));
+            stompClient.send("/app/msg/hellosingle", {}, JSON.stringify({'name': $("#name").val(),'id':'ricky',selfId : "rickyt2"}));
         }
 
         function showGreeting(message) {

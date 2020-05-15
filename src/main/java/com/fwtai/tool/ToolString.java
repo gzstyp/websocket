@@ -421,14 +421,27 @@ public final class ToolString implements Serializable {
      * @QQ号码 444141300
      * @主页 http://www.fwtai.com
     */
-    public final static HashMap<String,String> parseJsonObject(final Object json){
+    public final static HashMap<String,String> parseJsonObject(final String json){
         final HashMap<String,String> jsonMap = new HashMap<String,String>();
-        if(json == null || json.toString().length() <= 0) return jsonMap;
+        if(json == null || json.length() <= 0) return jsonMap;
         try {
-            final HashMap<String,String> map = JSON.parseObject(json.toString(),new TypeReference<HashMap<String,String>>(){});
+            final HashMap<String,String> map = JSON.parseObject(json,new TypeReference<HashMap<String,String>>(){});
             return map == null ? jsonMap : map;
         } catch (Exception e){
             return jsonMap;
+        }
+    }
+
+    /**
+     * 解析json对象字符串
+    */
+    public final static JSONObject parseJsonObj(final String json){
+        final JSONObject jsonObject = new JSONObject();
+        if(json == null || json.length() <= 0) return jsonObject;
+        try {
+            return JSONObject.parseObject(json);
+        } catch (Exception e){
+            return jsonObject;
         }
     }
 
