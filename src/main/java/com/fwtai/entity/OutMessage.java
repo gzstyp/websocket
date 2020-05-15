@@ -1,4 +1,4 @@
-package com.ricky.entity;
+package com.fwtai.entity;
 
 /**
  * 消息推送实体

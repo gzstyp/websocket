@@ -8,6 +8,11 @@
     <artifactId>websocket</artifactId>
     <version>v1.0.0</version>
     <packaging>war</packaging>
+
+    <description>
+        SpringBoot-WebSocket广播消息+单点消息(指定用户发送消息)
+    </description>
+
     <!--提供了springmvc aop ioc常见的依赖包-->
     <parent>
         <groupId>org.springframework.boot</groupId>

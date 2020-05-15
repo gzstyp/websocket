@@ -1,7 +1,7 @@
-package com.ricky.websocket;
+package com.fwtai.websocket;
 
-import com.ricky.entity.InMessage;
-import com.ricky.entity.OutMessage;
+import com.fwtai.entity.InMessage;
+import com.fwtai.entity.OutMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.handler.annotation.MessageMapping;
