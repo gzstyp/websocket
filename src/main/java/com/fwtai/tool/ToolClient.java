@@ -510,8 +510,7 @@ public final class ToolClient implements Serializable{
         try {
             final HttpServletResponse response = getResponse();
             responseJson(json,response);
-        } catch (Exception e) {
-        }
+        } catch (Exception e) {}
     }
 
 	/**
