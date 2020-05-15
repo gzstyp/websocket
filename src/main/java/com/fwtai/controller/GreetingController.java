@@ -68,14 +68,13 @@ public class GreetingController{
     /**
      * 同样的发送消息 只不过是ws版本 http请求不能访问
      * 根据用户key发送消息
-     * @param message
-     * @param json 参数为json格式
+     * @param message json 参数为json格式
      * @return
      * @throws Exception
      */
     @MessageMapping("/msg/hellosingle")
     @RequestMapping("/wms/gateway")
-    public void greeting2(final InMessage message,final String json) throws Exception{
+    public void greeting2(final InMessage message) throws Exception{
         final Map<String,String> params = new HashMap(1);
         params.put("test","test");
         final HashMap<String,String> object = ToolString.parseJsonObject(message.getJson());
@@ -87,8 +86,8 @@ public class GreetingController{
             final String getId = object.get("id");//target.get();
             final String sessionId = targetId == null ? getId : targetId;
             template.convertAndSendToUser(sessionId,"/topic/greetings",new OutMessage("single send to：" + message.getId() + ", from:" + message.getName() + "!"),createHeaders(sessionId));
-            final String result = ToolClient.createJsonSuccess("操作成功");
-            ToolClient.responseJson(result);
+            final String json = ToolClient.createJsonSuccess("操作成功");
+            ToolClient.responseJson(json);
         }else{
             //指定的userId不在线
             final String sessionId = message.getSelfId();
