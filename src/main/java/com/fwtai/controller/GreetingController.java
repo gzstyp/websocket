@@ -2,6 +2,7 @@ package com.fwtai.controller;
 
 import com.fwtai.entity.InMessage;
 import com.fwtai.entity.OutMessage;
+import com.fwtai.tool.ToolClient;
 import com.fwtai.tool.ToolString;
 import com.fwtai.websocket.SocketSessionRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,6 +87,8 @@ public class GreetingController{
             final String getId = object.get("id");//target.get();
             final String sessionId = targetId == null ? getId : targetId;
             template.convertAndSendToUser(sessionId,"/topic/greetings",new OutMessage("single send to：" + message.getId() + ", from:" + message.getName() + "!"),createHeaders(sessionId));
+            final String result = ToolClient.createJsonSuccess("操作成功");
+            ToolClient.responseJson(result);
         }else{
             //指定的userId不在线
             final String sessionId = message.getSelfId();

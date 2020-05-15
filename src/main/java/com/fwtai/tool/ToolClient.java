@@ -507,8 +507,11 @@ public final class ToolClient implements Serializable{
      * @官网 http://www.fwtai.com
     */
     public final static void responseJson(final String json){
-        final HttpServletResponse response = getResponse();
-        responseJson(json,response);
+        try {
+            final HttpServletResponse response = getResponse();
+            responseJson(json,response);
+        } catch (Exception e) {
+        }
     }
 
 	/**
