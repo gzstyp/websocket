@@ -1,7 +1,8 @@
-package com.fwtai.websocket;
+package com.fwtai.controller;
 
 import com.fwtai.entity.InMessage;
 import com.fwtai.entity.OutMessage;
+import com.fwtai.websocket.SocketSessionRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -92,7 +93,7 @@ public class GreetingController{
         Map<String,String> params = new HashMap(1);
         params.put("test","test");
         //这里没做校验
-        String sessionId = webAgentSessionRegistry.getSessionIds(message.getId()).stream().findFirst().get();
+        final String sessionId = webAgentSessionRegistry.getSessionIds(message.getId()).stream().findFirst().get();
         template.convertAndSendToUser(sessionId,"/topic/greetings",new OutMessage("single send to：" + message.getId() + ", from:" + message.getName() + "!"),createHeaders(sessionId));
     }
 
