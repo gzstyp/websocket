@@ -10,7 +10,7 @@
     <packaging>war</packaging>
 
     <description>
-        SpringBoot-WebSocket广播消息+单点消息(指定用户发送消息)
+        SpringBoot-WebSocket广播消息+单点消息(指定用户发送消息),支持单播、广播、组播
     </description>
 
     <!--提供了springmvc aop ioc常见的依赖包-->
