@@ -18,7 +18,6 @@ import org.springframework.messaging.simp.SimpMessageType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -168,14 +167,6 @@ public class TaskController{
         //这里没做校验
         String sessionId=webAgentSessionRegistry.getSessionIds(message.getId()).stream().findFirst().get();
         template.convertAndSendToUser(sessionId,"/topic/greetings",new OutMessage("single send to："+message.getId()+", from:" + message.getName() + "!"),createHeaders(sessionId));
-    }
-
-    //添加货位对应的坐标
-    @PostMapping("/wms/addPoint")
-    public void addPoint(final HttpServletRequest request,final HttpServletResponse response){
-        final PageFormData formData = new PageFormData(request);
-        final String json = taskService.addStoragePoint(formData);
-        ToolClient.responseJson(json,response);
     }
 
     @RequestMapping("/wms/gateway0")

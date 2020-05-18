@@ -1,9 +1,11 @@
 package com.fwtai.controller;
 
+import com.fwtai.bean.PageFormData;
 import com.fwtai.service.StoragePointService;
 import com.fwtai.tool.ToolClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,6 +31,14 @@ public class StoragePointController{
 
     @Resource
     private StoragePointService service;
+
+    //添加货位对应的坐标
+    @PostMapping("addPoint")
+    public void addPoint(final HttpServletRequest request,final HttpServletResponse response){
+        final PageFormData formData = new PageFormData(request);
+        final String json = service.addStoragePoint(formData);
+        ToolClient.responseJson(json,response);
+    }
 
     @GetMapping("getListData")
     public final void getListData(final HttpServletResponse response){

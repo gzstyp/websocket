@@ -1,7 +1,6 @@
 package com.fwtai.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fwtai.bean.PageFormData;
 import com.fwtai.dao.DaoHandle;
 import com.fwtai.tool.ToolClient;
 import com.fwtai.tool.ToolString;
@@ -27,20 +26,6 @@ public class TaskService{
 
     @Autowired
     private DaoHandle daoHandle;
-
-    public String addStoragePoint(final PageFormData formData){
-        final String p_item_storage_code = "item_storage_code";
-        final String p_point = "point";
-        final String validateField = ToolClient.validateField(formData,p_item_storage_code,p_point);
-        if(validateField !=null)return validateField;
-        final String point = formData.getString(p_point);
-        final int type = ToolString.jsonType(point);
-        if(type != 1)return ToolClient.createJsonFail("货位坐标的格式有误");
-        final String kid = ToolString.getIdsChar32();
-        formData.put("kid",kid);
-        final int rows = daoHandle.execute("wms.addStoragePoint",formData);
-        return ToolClient.executeRows(rows);
-    }
 
     @Transactional
     public Integer insert(final JSONObject jsonObject){

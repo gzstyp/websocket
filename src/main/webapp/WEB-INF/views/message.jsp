@@ -89,7 +89,6 @@
                 stompClient.disconnect();
             }
             setConnected(false);
-            console.log("Disconnected");
         }
 
         function sendName() {
