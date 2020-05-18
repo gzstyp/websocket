@@ -66,4 +66,8 @@
             #{item}
         </foreach>
     </select>
+
+    <select id="getListData" resultType="HashMap" parameterType="HashMap">
+        select item_storage_code, point,DATE_FORMAT(gmt_create,'%Y-%m-%d %H:%i') gmt_create from storage_point
+    </select>
 </mapper>

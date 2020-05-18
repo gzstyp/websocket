@@ -1,31 +1,44 @@
 package com.fwtai.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 /**
+ * 页面跳转
  * @作者 田应平
  * @版本 v1.0
  * @创建时间 2020-05-15 18:01
  * @QQ号码 444141300
  * @Email service@dwlai.com
  * @官网 http://www.fwtai.com
- */
+*/
 @Controller
 public class PageController{
 
-    @RequestMapping(value = "/index")
+    @GetMapping(value = "/index")
     public String index(){
-        return "/index";
+        return "index";
     }
 
-    @RequestMapping(value = "/msg/message")
+    @GetMapping(value = "/message")
     public String ToMessage(){
-        return "/message";
+        return "message";
     }
 
-    @RequestMapping(value = "/msg/messaget2")
+    @GetMapping(value = "/messaget2")
     public String ToMessaget2(){
-        return "/messaget2";
+        return "messaget2";
+    }
+
+    //货位号管理
+    @GetMapping(value = "/point")
+    public String point(){
+        return "point";
+    }
+
+    //货位号管理
+    @GetMapping(value = "/login")
+    public String login(){
+        return "login";
     }
 }
