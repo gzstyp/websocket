@@ -12,7 +12,7 @@ import org.springframework.web.socket.messaging.SessionConnectEvent;
 public class STOMPConnectEventListener  implements ApplicationListener<SessionConnectEvent> {
 
     @Autowired
-    SocketSessionRegistry webAgentSessionRegistry;
+    private SocketSessionRegistry webAgentSessionRegistry;
 
     @Override
     public void onApplicationEvent(final SessionConnectEvent event) {

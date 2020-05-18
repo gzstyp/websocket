@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import com.fwtai.bean.FormData;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -98,10 +97,6 @@ public final class ToolString implements Serializable {
 		}
 		if(obj instanceof HashMap<?,?>){
 			final HashMap<?, ?> hashMap = (HashMap<?,?>) obj;
-            return hashMap == null || hashMap.size() <= 0;
-        }
-		if(obj instanceof FormData){
-			final FormData hashMap = (FormData)obj;
             return hashMap == null || hashMap.size() <= 0;
         }
 		if(obj instanceof JSONObject){
@@ -462,28 +457,6 @@ public final class ToolString implements Serializable {
         } catch (Exception e){
             return listResult;
         }
-    }
-
-    /**
-     * 解析json数组字符串,List里的PageFormData的key未做处理
-     * @param
-     * @作者 田应平
-     * @QQ 444141300
-     * @创建时间 2018年9月29日 13:52:54
-    */
-    public final static List<FormData> parseArrayPageFormData(final Object array){
-        final List<FormData> list = new ArrayList<FormData>();
-        if(isBlank(array)){return list;}
-        final JSONArray jsonArray = JSONArray.parseArray(array.toString());
-        for(int i = 0; i < jsonArray.size(); i++){
-            final JSONObject json = jsonArray.getJSONObject(i);
-            final FormData pageData = new FormData();
-            for(final String key : json.keySet()){
-                pageData.put(key,json.get(key));
-            }
-            list.add(pageData);
-        }
-        return list;
     }
 
     /**

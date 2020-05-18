@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wms">
+
+    <update id="addTask" parameterType="HashMap">
+        insert into task(kid, invoices_code, type, total, status) values (#{kid},#{invoices_code}, #{type}, #{total}, #{status})
+    </update>
+
+    <update id="addTaskDetail" parameterType="ArrayList">
+        INSERT INTO task_detail (
+        <foreach collection="list" item="item" index="index">
+            <trim suffixOverrides=",">
+                <if test="index==0">
+                    <if test="item.kid != null and item.kid != ''">kid,</if>
+                    <if test="item.task_id != null and item.task_id != ''">task_id,</if>
+                    <if test="item.invoices_code != null and item.invoices_code != ''">invoices_code,</if>
+                    <if test="item.item_code != null and item.item_code != ''">item_code,</if>
+                    <if test="item.item_name != null and item.item_name != ''">item_name,</if>
+                    <if test="item.item_total != null and item.item_total != ''">item_total,</if>
+                    <if test="item.item_storage_code != null and item.item_storage_code != ''">item_storage_code</if>
+                </if>
+            </trim>
+        </foreach>
+        ) VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            <trim suffixOverrides=",">
+                <if test="item.kid != null and item.kid != ''">#{item.kid},</if>
+                <if test="item.task_id != null and item.task_id != ''">#{item.task_id},</if>
+                <if test="item.invoices_code != null and item.invoices_code != ''">#{item.invoices_code},</if>
+                <if test="item.item_code != null and item.item_code != ''">#{item.item_code},</if>
+                <if test="item.item_name != null and item.item_name != ''">#{item.item_name},</if>
+                <if test="item.item_total != null and item.item_total != ''">#{item.item_total},</if>
+                <if test="item.item_storage_code != null and item.item_storage_code != ''">#{item.item_storage_code}</if>
+            </trim>
+            )
+        </foreach>
+    </update>
+
+    <select id="getTaskData" resultType="HashMap">
+        select kid, invoices_code, type, total, status, flag, gmt_create from task where flag = 0 order by gmt_create desc LIMIT 1
+    </select>
+
+    <select id="getListDetail" resultType="HashMap" parameterType="String">
+        select td.invoices_code,td.item_code,td.item_name,td.item_total,td.item_storage_code,sp.point from task_detail td
+        left join storage_point sp on sp.item_storage_code = td.item_storage_code
+        where task_id = #{kid}
+    </select>
+
+    <!-- 更改状态已推送 -->
+    <update id="updateFlag" parameterType="String">
+        update task set flag = 1 where kid = #{kid} and flag = 0
+    </update>
+
+    <update id="addStoragePoint" parameterType="HashMap">
+        insert into storage_point(kid, item_storage_code, point) VALUES (#{kid},#{item_storage_code},#{point})
+    </update>
+
+    <select id="getStoragePoint" resultType="HashMap" parameterType="ArrayList">
+        select item_storage_code,point
+        from storage_point
+        where item_storage_code in
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+</mapper>

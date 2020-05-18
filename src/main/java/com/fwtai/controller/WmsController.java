@@ -1,6 +1,6 @@
 package com.fwtai.controller;
 
-import com.fwtai.bean.FormData;
+import com.fwtai.bean.PageFormData;
 import com.fwtai.tool.ToolClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +28,7 @@ public class WmsController{
     // http://127.0.0.1:81/api/gateway
     @RequestMapping("gateway")
     public final void gateway(final HttpServletResponse response){
-        final FormData formData = FormData.buildInputStream(request);
+        final PageFormData formData = new PageFormData(request);
         final String json = ToolClient.validateField(formData,"invoices_code","type","total","status","data");
         if(json != null){
             ToolClient.responseJson(json,response);

@@ -91,7 +91,6 @@
             stompClient.send("/app/msg/hellosingle", {}, JSON.stringify({'name': $("#name").val(),'id':'rickyt2',selfId : "ricky"}));
         }
 
-
         function showGreeting(message) {
             $("#greetings").append("<tr><td>" + message + "</td></tr>");
         }
@@ -103,6 +102,7 @@
             $( "#connect" ).click(function() { connect(); });
             $( "#disconnect" ).click(function() { disconnect(); });
             $( "#send" ).click(function() { sendName(); });
+            connect();
         });
     </script>
 </body>

@@ -3,7 +3,6 @@ package com.fwtai.tool;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.fwtai.bean.FormData;
 import com.fwtai.config.ConfigFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -278,7 +277,6 @@ public final class ToolClient implements Serializable{
      * @主页 http://www.fwtai.com
     */
     public final static String validateField(final Map<String,?> params,final String... fields){
-        final JSONObject json = new JSONObject();
         if(ToolString.isBlank(params) || ToolString.isBlank(fields)){
             return jsonValidateField();
         }
@@ -295,8 +293,7 @@ public final class ToolClient implements Serializable{
         return null;
     }
 
-    public final static String validateField(final FormData params,final String... fields){
-        final JSONObject json = new JSONObject();
+    public final static String validateField(final JSONObject params,final String... fields){
         if(ToolString.isBlank(params) || ToolString.isBlank(fields)){
             return jsonValidateField();
         }
@@ -377,8 +374,8 @@ public final class ToolClient implements Serializable{
         return null;
     }
 
-    public final static String validateInteger(final FormData params,final String... fields){
-        for(int i = 0; i < fields.length;i++){
+    public final static String validateInteger(final JSONObject params,final String... fields){
+        for(int i = 0; i < fields.length; i++){
             try {
                 final Object o = params.get(fields[i]);
                 if(o != null){
