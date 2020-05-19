@@ -388,12 +388,11 @@ public final class ToolString implements Serializable {
 	 * @QQ号码 444141300
 	 * @官网 http://www.fwtai.com
 	*/
-	public final static int jsonType(final Object json_obj){
-		if(isBlank(json_obj)){
-			return 0;
-		}
-		final String json = json_obj.toString().trim();
-		try {
+	public final static int jsonType(final String json){
+        if(json == null || json.length() <= 0){
+            return 3;
+        }
+        try {
             if(Pattern.matches("^\\{\".*\\}$",json)){
                 JSONObject.parseObject(json);
                 return 1;
@@ -403,9 +402,9 @@ public final class ToolString implements Serializable {
             }else {
                 return 0;
             }
-		} catch (Exception e){
-			return 0;
-		}
+        } catch (Exception e){
+            return 4;
+        }
 	}
 
     /**
