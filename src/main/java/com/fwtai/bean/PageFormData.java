@@ -1,6 +1,7 @@
 package com.fwtai.bean;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import javax.servlet.ServletRequest;
@@ -43,8 +44,7 @@ public final class PageFormData extends HashMap<String,Object>{
             if(key.equals("_"))continue;
             final String value = request.getParameter(key);
             if(value != null && value.length() > 0){
-                if(value.length() == 1 && value.equals("_"))
-                    continue;
+                if(value.length() == 1 && value.equals("_"))continue;
                 map.put(key,value.trim());
             }
         }
@@ -69,10 +69,8 @@ public final class PageFormData extends HashMap<String,Object>{
                         final Object obj = json.get(key);
                         if(obj != null){
                             final String value = obj.toString().trim();
-                            if(value.length() <= 0)
-                                continue;
-                            if(value.length() == 1 && value.equals("_"))
-                                continue;
+                            if(value.length() <= 0)continue;
+                            if(value.length() == 1 && value.equals("_"))continue;
                             map.put(key,obj);
                         }
                     }
@@ -84,7 +82,7 @@ public final class PageFormData extends HashMap<String,Object>{
         return this;
     }
 
-    public final JSONObject buildInputStream(final HttpServletRequest request){
+    public final JSONObject buildJSONObject(final HttpServletRequest request){
         JSONObject json = new JSONObject(20);
         try {
             final BufferedReader in = new BufferedReader(new InputStreamReader(request.getInputStream(),"UTF-8"));
@@ -95,18 +93,15 @@ public final class PageFormData extends HashMap<String,Object>{
             }
             in.close();
             if(sb.length() > 0){
-                final String str = sb.toString().trim();
-                json = JSONObject.parseObject(str);
+                json = JSONObject.parseObject(sb.toString().trim());
                 if(!json.isEmpty()){
                     for(final String key : json.keySet()){
                         if(key.equals("_"))continue;
                         final Object obj = json.get(key);
                         if(obj != null){
                             final String value = String.valueOf(obj).trim();
-                            if(value.length() <= 0)
-                                continue;
-                            if(value.length() == 1 && value.equals("_"))
-                                continue;
+                            if(value.length() <= 0)continue;
+                            if(value.length() == 1 && value.equals("_"))continue;
                             json.put(key,obj);
                         }
                     }
@@ -116,6 +111,38 @@ public final class PageFormData extends HashMap<String,Object>{
         } catch (Exception e){
         }
         return json;
+    }
+
+    public final JSONArray buildJSONArray(final HttpServletRequest request){
+        final JSONArray jsonArray = new JSONArray();
+        try {
+            final BufferedReader in = new BufferedReader(new InputStreamReader(request.getInputStream(),"UTF-8"));
+            final StringBuilder sb = new StringBuilder();
+            String s = "";
+            while((s = in.readLine()) != null){
+                sb.append(s);
+            }
+            in.close();
+            if(sb.length() > 0){
+                final JSONArray array = JSONObject.parseArray(sb.toString().trim());
+                for(int i = 0; i < array.size(); i++){
+                    final JSONObject object = array.getJSONObject(i);
+                    final JSONObject objectObject = new JSONObject();
+                    for(final String key : object.keySet()){
+                        if(key.equals("_"))continue;
+                        final Object obj = object.get(key);
+                        if(obj != null){
+                            final String value = String.valueOf(obj).trim();
+                            if(value.length() <= 0)continue;
+                            if(value.length() == 1 && value.equals("_"))continue;
+                            objectObject.put(key,value);
+                        }
+                    }
+                    if(!objectObject.isEmpty())jsonArray.add(objectObject);
+                }
+            }
+        } catch (Exception e){}
+        return jsonArray;
     }
 
     public final static Map<String, String> build(final ServletRequest request){
