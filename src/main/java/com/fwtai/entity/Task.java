@@ -1,5 +1,8 @@
 package com.fwtai.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.List;
 
 /**
@@ -11,20 +14,21 @@ import java.util.List;
  * @Email service@dwlai.com
  * @官网 http://www.fwtai.com
  */
+@ApiModel("出入库指令任务")
 public final class Task{
 
     private String id;
 
     private String kid;
 
+    @ApiModelProperty(notes = "任务单号|编号")
     private String invoices_code;
-
+    @ApiModelProperty(notes = "指令类型(1入库;2出库;)")
     private Integer type;
-
+    @ApiModelProperty(notes = "任务数量")
     private Integer total;
-
     private Integer status;
-
+    @ApiModelProperty(notes = "任务明细")
     private List<TaskDetail> data;
 
     public Task(){}

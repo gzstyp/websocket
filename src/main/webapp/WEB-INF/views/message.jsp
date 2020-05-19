@@ -58,7 +58,7 @@
         //  /msg/sendcommuser
         var stompClient = null;
         //传递用户key值
-        var login = "ricky";
+        var keyId = "ricky";
         function setConnected(connected) {
             $("#connect").prop("disabled", connected);
             $("#disconnect").prop("disabled", !connected);
@@ -72,13 +72,15 @@
         }
 
         function connect() {
-            var socket = new SockJS('/ricky-websocket');
+            var socket = new SockJS('/ricky-websocket');//
             stompClient = Stomp.over(socket);
-            stompClient.connect({login:login}, function (frame) {
+            stompClient.connect({login:keyId}, function (frame) {
                 setConnected(true);
-                console.log('Connected: ' + frame);
+                debugger;
+                console.log('已连接: ' + frame);
                 showGreeting("连接成功……");
                 stompClient.subscribe('/ricky/topic/greetings', function (greeting) {
+                    debugger;
                     showGreeting(JSON.parse(greeting.body).content);
                 });
             });

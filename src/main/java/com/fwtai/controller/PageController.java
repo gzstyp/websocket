@@ -2,6 +2,7 @@ package com.fwtai.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * 页面跳转
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @官网 http://www.fwtai.com
 */
 @Controller
+@ApiIgnore
 public class PageController{
 
     @GetMapping(value = "/index")

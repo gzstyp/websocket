@@ -70,4 +70,9 @@
     <select id="getListData" resultType="HashMap" parameterType="HashMap">
         select item_storage_code, point,DATE_FORMAT(gmt_create,'%Y-%m-%d %H:%i') gmt_create from storage_point
     </select>
+
+    <update id="editStatus" parameterType="HashMap">
+        UPDATE task_detail set status = #{status} where invoices_code = #{invoices_code} and item_code = #{item_code} LIMIT 1
+    </update>
+
 </mapper>

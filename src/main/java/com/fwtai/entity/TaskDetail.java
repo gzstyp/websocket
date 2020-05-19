@@ -1,5 +1,7 @@
 package com.fwtai.entity;
 
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * 任务明细
  * @作者 田应平
@@ -13,10 +15,15 @@ public final class TaskDetail{
 
     private String kid;
     private String task_id;
+    @ApiModelProperty(notes = "任务单号|编号")
     private String invoices_code;
+    @ApiModelProperty(notes = "物资编号")
     private String item_code;
+    @ApiModelProperty(notes = "物资名称")
     private String item_name;
+    @ApiModelProperty(notes = "物资数量")
     private String item_total;
+    @ApiModelProperty(notes = "货位号")
     private String item_storage_code;
     private String gmt_create;
 

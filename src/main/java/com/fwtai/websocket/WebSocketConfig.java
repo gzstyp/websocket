@@ -24,7 +24,7 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer{
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry){
-        registry.addEndpoint("/ricky-websocket").withSockJS();//初始化连接WebSocket
+        registry.addEndpoint("/ricky-websocket").withSockJS();
     }
 
     @Bean

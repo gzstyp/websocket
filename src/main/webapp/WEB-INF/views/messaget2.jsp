@@ -58,7 +58,7 @@
     <script>
         var stompClient = null;
         //传递用户key值
-        var login = "rickyt2";
+        var keyId = "rickyt2";
         function setConnected(connected) {
             $("#connect").prop("disabled", connected);
             $("#disconnect").prop("disabled", !connected);
@@ -74,7 +74,7 @@
         function connect() {
             var socket = new SockJS('/ricky-websocket');
             stompClient = Stomp.over(socket);
-            stompClient.connect({login:login}, function (frame) {
+            stompClient.connect({login:keyId}, function (frame) {
                 setConnected(true);
                 console.log('Connected: ' + frame);
                 showGreeting("连接成功……");

@@ -440,6 +440,19 @@ public final class ToolString implements Serializable {
     }
 
     /**
+     * 解析json对象字符串
+    */
+    public final static JSONArray parseJsonArray(final String json){
+        final JSONArray array = new JSONArray();
+        if(json == null || json.length() <= 0) return array;
+        try {
+            return JSONObject.parseArray(json.trim());
+        } catch (Exception e){
+            return array;
+        }
+    }
+
+    /**
      * <strong style='color:#f69;'>解析json数组字符串,ArrayList里的HashMap的key未做处理</strong>
      * @提示 <strong style='color:#369;'>json对象就是以{"开头,即HashMap<String,String>;json数组就是以[{"开头,即ArrayList<HashMap<String,String>>;json全都是String</strong>
      * @作者 田应平

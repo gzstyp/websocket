@@ -1,6 +1,8 @@
 package com.fwtai.service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.fwtai.bean.PageFormData;
 import com.fwtai.dao.DaoHandle;
 import com.fwtai.tool.ToolClient;
 import com.fwtai.tool.ToolString;
@@ -12,6 +14,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @作者 田应平
@@ -89,6 +92,46 @@ public class TaskService{
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         }
         return ToolClient.executeRows(rows2);
+    }
+
+    public String status(final JSONArray jsonArray){
+        if(jsonArray == null || jsonArray.size() <= 0)return ToolClient.jsonValidateField();
+        final List<Map> list = jsonArray.toJavaList(Map.class);
+        boolean b = false;
+        for(int i = 0; i < list.size(); i++){
+            final Map map = list.get(i);
+            if( !map.containsKey("invoices_code") || !map.containsKey("item_code") || !map.containsKey("status")){
+                b = true;
+                break;
+            }
+        }
+        if(b){
+            return ToolClient.jsonValidateField();
+        }
+        //更新状态
+        int index = 0;
+        for(int i = 0; i < list.size(); i++){
+            final int rows = daoHandle.execute("wms.editStatus",list.get(i));
+            if(rows > 0) index ++;
+        }
+        if(index > 0){
+            if( index == list.size()){
+                return ToolClient.createJsonSuccess("操作成功");
+            }else{
+                return ToolClient.createJsonSuccess("操作成功"+ index + "条,失败数"+ (list.size() - index));
+            }
+        }else{
+            return ToolClient.createJsonFail("操作失败");
+        }
+    }
+
+    public Integer confirm(final PageFormData formData){
+        final String p_invoices_code = "invoices_code";
+        final String p_item_code = "item_code";
+        final String validateField = ToolClient.validateField(formData,p_invoices_code,p_item_code);
+        if(validateField !=null)return -1;
+        final int rows = daoHandle.execute("wms.confirm",formData);
+        return rows > 0 ? 1 : 0;
     }
 
     public List<HashMap<String,String>> queryStorageCode(final ArrayList<String> storages){
