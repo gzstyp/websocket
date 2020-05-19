@@ -68,17 +68,19 @@ public final class PageFormData extends HashMap<String,Object>{
                         if(key.equals("_"))continue;
                         final Object obj = json.get(key);
                         if(obj != null){
-                            final String value = obj.toString().trim();
-                            if(value.length() <= 0)continue;
-                            if(value.length() == 1 && value.equals("_"))continue;
-                            map.put(key,obj);
+                            if(obj instanceof String){
+                                final String value = obj.toString().trim();
+                                if(value.length() <= 0)continue;
+                                if(value.length() == 1 && value.equals("_"))continue;
+                                map.put(key,value);
+                            }else{
+                                map.put(key,obj);
+                            }
                         }
                     }
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) {}
         return this;
     }
 
@@ -99,10 +101,14 @@ public final class PageFormData extends HashMap<String,Object>{
                         if(key.equals("_"))continue;
                         final Object obj = json.get(key);
                         if(obj != null){
-                            final String value = String.valueOf(obj).trim();
-                            if(value.length() <= 0)continue;
-                            if(value.length() == 1 && value.equals("_"))continue;
-                            json.put(key,obj);
+                            if(obj instanceof String){
+                                final String value = obj.toString().trim();
+                                if(value.length() <= 0)continue;
+                                if(value.length() == 1 && value.equals("_"))continue;
+                                json.put(key,value);
+                            }else {
+                                json.put(key,obj);
+                            }
                         }
                     }
                     return json;
@@ -132,10 +138,14 @@ public final class PageFormData extends HashMap<String,Object>{
                         if(key.equals("_"))continue;
                         final Object obj = object.get(key);
                         if(obj != null){
-                            final String value = String.valueOf(obj).trim();
-                            if(value.length() <= 0)continue;
-                            if(value.length() == 1 && value.equals("_"))continue;
-                            objectObject.put(key,value);
+                            if(obj instanceof String){
+                                final String value = String.valueOf(obj).trim();
+                                if(value.length() <= 0)continue;
+                                if(value.length() == 1 && value.equals("_"))continue;
+                                objectObject.put(key,value);
+                            }else{
+                                objectObject.put(key,obj);
+                            }
                         }
                     }
                     if(!objectObject.isEmpty())jsonArray.add(objectObject);
