@@ -16,8 +16,7 @@
 </head>
 <body>
 <noscript><h4 style="color: #ff0000">你的浏览器不支持Websocket或请启用浏览器Javascript功能后请重新加载页面</h4></noscript>
-    <blockquote class="layui-elem-quote">/ricky/topic-message</blockquote>
-    <div id="main-content" class="container">
+    <div id="main-content" class="container" style="margin-top:20px;">
         <div class="row">
             <div class="col-md-6">
                 <form class="form-inline">
