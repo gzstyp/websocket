@@ -28,7 +28,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <label>坐标</label>
+            <label style="margin-top:8px;">坐标</label>
         </div>
     </div>
     <div class="row">
@@ -59,7 +59,7 @@
             <input type="text" class="form-control" id="y4" placeholder="坐标y4的值">
         </div>
     </div>
-    <div class="row" style="margin-top:10px;">
+    <div class="row" style="margin-top:14px;">
         <div class="col-md-12">
             <button id="btnAdd" class=" col-md-12 btn btn-primary">添加</button>
         </div>
