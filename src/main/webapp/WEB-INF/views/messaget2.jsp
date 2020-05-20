@@ -56,7 +56,7 @@
     <script>
         var stompClient = null;
         //传递用户key值
-        var keyId = "rickyt2";
+        var keyId = "rickyt2";//认证信息
         function setConnected(connected) {
             $("#connect").prop("disabled", connected);
             $("#disconnect").prop("disabled", !connected);
@@ -70,15 +70,18 @@
         }
 
         function connect() {
-            var socket = new SockJS('/ricky-websocket');
+            var socket = new SockJS('/initWebsocket');//建立连接对象（还未发起连接）
             stompClient = Stomp.over(socket);
+            //向服务器发起websocket连接并发送connect帧
             stompClient.connect({login:keyId}, function (frame) {//可用的有: connect、send、subscribe、unsubscribe、begin、commit、abort、ack、nack、disconnect
                 setConnected(true);
                 console.log('Connected: ' + frame);
                 showGreeting("连接成功……");
-                stompClient.subscribe('/ricky/topic/greetings', function (greeting) {// subscribe是订阅消息
+                stompClient.subscribe('/ricky/topic/greetings', function (greeting) {// subscribe 是订阅消息
                     showGreeting(JSON.parse(greeting.body).content);
                 });
+            },function(error){
+                console.log('连接失败:'+ error)
             });
         }
 
@@ -92,7 +95,7 @@
 
         function sendName(){
             if(stompClient == null || stompClient == undefined)return;//提示先连接服务器
-            stompClient.send("/app/msg/hellosingle", {}, JSON.stringify({'name': $("#name").val(),'id':'ricky',selfId : "rickyt2"}));// send是发送消息
+            stompClient.send("/app/msg/hellosingle", {}, JSON.stringify({'name': $("#name").val(),'id':'ricky',selfId : "rickyt2"}));// send 是发送消息
         }
 
         function showGreeting(message) {
