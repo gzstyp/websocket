@@ -175,6 +175,7 @@ public class TaskController{
     }
 
     //更新任务状态
+    @ApiOperation(value = "更新任务", notes = "参数为json数组,即List< Bean >,返回的json格式")
     @PostMapping("/wms/status")
     public void status(@RequestBody final List<TaskStatus> taskStatus,final HttpServletResponse response){
         final String jsonStr = JSONObject.toJSONString(taskStatus);

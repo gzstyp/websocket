@@ -3,6 +3,7 @@ package com.fwtai.entity;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
+ * 更新任务对象
  * @作者 田应平
  * @版本 v1.0
  * @创建时间 2020-05-19 19:48
