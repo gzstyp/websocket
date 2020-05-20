@@ -73,13 +73,11 @@
         function connect() {
             var socket = new SockJS('/ricky-websocket');//
             stompClient = Stomp.over(socket);
-            stompClient.connect({login:keyId}, function (frame) {
+            stompClient.connect({login:keyId}, function (frame) {//可用的有: connect、send、subscribe、unsubscribe、begin、commit、abort、ack、nack、disconnect
                 setConnected(true);
-                debugger;
                 console.log('已连接: ' + frame);
                 showGreeting("连接成功……");
-                stompClient.subscribe('/ricky/topic/greetings', function (greeting) {
-                    debugger;
+                stompClient.subscribe('/ricky/topic/greetings', function (greeting){// subscribe是订阅消息
                     showGreeting(JSON.parse(greeting.body).content);
                 });
             });
@@ -94,7 +92,7 @@
 
         function sendName() {
             if(stompClient == null || stompClient == undefined)return;//提示先连接服务器
-            stompClient.send("/app/msg/hellosingle", {}, JSON.stringify({'name': $("#name").val(),'id':'rickyt2',selfId : "ricky"}));
+            stompClient.send("/app/msg/hellosingle", {}, JSON.stringify({'name': $("#name").val(),'id':'rickyt2',selfId : "ricky"}));// send是发送消息
         }
 
         function showGreeting(message) {

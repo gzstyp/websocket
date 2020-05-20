@@ -32,12 +32,12 @@ public class SchedulerConfig {
     private SocketSessionRegistry webAgentSessionRegistry;
 
     //@Scheduled(fixedDelay = 10000)
-    public OutMessage sendMessages(){
+    public void sendMessages(){
         final HashMap<String,Object> map = daoHandle.queryForHashMap("wms.getTaskData");
-        if(map == null || map.size() <= 0)return null;
+        if(map == null || map.size() <= 0)return;
         final String kid = String.valueOf(map.get("kid"));
         final List<HashMap<String,Object>> list = daoHandle.queryForListHashMap("wms.getListDetail",kid);
-        if(list == null || list.size() <= 0)return null;
+        if(list == null || list.size() <= 0)return;
         daoHandle.execute("wms.updateFlag",kid);
         final HashMap<String,Object> result = new HashMap<>();
         result.put("task",map);
@@ -48,7 +48,6 @@ public class SchedulerConfig {
             String sessionId = webAgentSessionRegistry.getSessionIds(x).stream().findFirst().get();
             template.convertAndSendToUser(sessionId,"/topic/greetings",new OutMessage(json),createHeaders(sessionId));
         });
-        return null;
     }
 
     private MessageHeaders createHeaders(final String sessionId){
