@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <base href="<%=basePath%>">
-    <title>WebSocket应用</title>
+    <title>rickyt2客户端</title>
     <link href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
     <script src="/webjars/sockjs-client/1.1.2/sockjs.min.js"></script>
@@ -95,7 +95,7 @@
 
         function sendName(){
             if(stompClient == null || stompClient == undefined)return;//提示先连接服务器
-            stompClient.send("/app/msg/hellosingle", {}, JSON.stringify({'name': $("#name").val(),'id':'ricky',selfId : "rickyt2"}));// send 是发送消息
+            stompClient.send("/app/msg/hellosingle", {}, JSON.stringify({'name': $("#name").val(),'id':'ricky'}));// send 是发送消息
         }
 
         function showGreeting(message) {
