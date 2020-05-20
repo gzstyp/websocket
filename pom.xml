@@ -63,12 +63,12 @@
             <artifactId>stomp-websocket</artifactId>
             <version>2.3.3</version>
         </dependency>
+        <!--WebSocket结束-->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
             <version>3.5.1</version>
         </dependency>
-        <!--WebSocket结束-->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
@@ -105,11 +105,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.layer</groupId>
-            <artifactId>gradle-git-repo-plugin</artifactId>
-            <version>2.0.2</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>

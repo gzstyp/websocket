@@ -16,11 +16,13 @@
 </head>
 <body>
 <noscript><h4 style="color: #ff0000">你的浏览器不支持Websocket或请启用浏览器Javascript功能后请重新加载页面</h4></noscript>
-    <div id="main-content" class="container">
+    <div id="main-content" class="container" style="margin-top:20px;">
         <div class="row">
-            <a href="/message" target="_blank" class="btn btn-default">ricky用户</a>
-            <a href="/messaget2" target="_blank" class="btn btn-primary">rickyt2用户</a>
-            <a href="/msg/sendcommuser" target="_blank" class="btn btn-success">发送公共消息</a>
+            <div class="col-md-6">
+                <a href="/message" target="_blank" class="btn btn-default">ricky用户</a>
+                <a href="/messaget2" target="_blank" class="btn btn-primary">rickyt2用户</a>
+                <a href="/msg/sendcommuser" target="_blank" class="btn btn-success">发送公共消息</a>
+            </div>
         </div>
     </div>
 </body>
