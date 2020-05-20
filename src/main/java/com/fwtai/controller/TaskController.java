@@ -22,7 +22,6 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -72,8 +71,7 @@ public class TaskController{
      * @return
     */
     @ApiIgnore
-    @GetMapping(value = "/msg/sendcommuser")
-    @RequestMapping("/wms/confirm")
+    @PostMapping("/wms/confirm")
     public void SendToCommUserMessage(){
         final List<String> keys = webAgentSessionRegistry.getAllSessionIds().entrySet().stream().map(Map.Entry::getKey).collect(Collectors.toList());
         final Date date = new Date();
