@@ -16,15 +16,15 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer{
 
     @Override
     public void configureMessageBroker(final MessageBrokerRegistry config){
-        config.enableSimpleBroker("/topic");// /users 默认通知
+        config.enableSimpleBroker("/topic");// users 默认通知
         config.setApplicationDestinationPrefixes("/app");
         //设置前缀  默认是user 可以修改  点对点时使用
         config.setUserDestinationPrefix("/ricky/");
     }
 
     @Override
-    public void registerStompEndpoints(StompEndpointRegistry registry){
-        registry.addEndpoint("/ricky-websocket").withSockJS();//初始化连接WebSocket
+    public void registerStompEndpoints(final StompEndpointRegistry registry){
+        registry.addEndpoint("/initWebsocket").withSockJS();//客户端连接的url地址
     }
 
     @Bean

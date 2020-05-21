@@ -11,10 +11,9 @@ public class InMessage{
 
     private String selfId;
 
-    private String json;
+    private String json;//要包含id,
 
-    public InMessage(){
-    }
+    public InMessage(){}
 
     public InMessage(String name){
         this.name = name;

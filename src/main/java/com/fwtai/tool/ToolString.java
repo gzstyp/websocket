@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import com.fwtai.bean.FormData;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -98,10 +97,6 @@ public final class ToolString implements Serializable {
 		}
 		if(obj instanceof HashMap<?,?>){
 			final HashMap<?, ?> hashMap = (HashMap<?,?>) obj;
-            return hashMap == null || hashMap.size() <= 0;
-        }
-		if(obj instanceof FormData){
-			final FormData hashMap = (FormData)obj;
             return hashMap == null || hashMap.size() <= 0;
         }
 		if(obj instanceof JSONObject){
@@ -393,12 +388,11 @@ public final class ToolString implements Serializable {
 	 * @QQ号码 444141300
 	 * @官网 http://www.fwtai.com
 	*/
-	public final static int jsonType(final Object json_obj){
-		if(isBlank(json_obj)){
-			return 0;
-		}
-		final String json = json_obj.toString().trim();
-		try {
+	public final static int jsonType(final String json){
+        if(json == null || json.length() <= 0){
+            return 3;
+        }
+        try {
             if(Pattern.matches("^\\{\".*\\}$",json)){
                 JSONObject.parseObject(json);
                 return 1;
@@ -408,9 +402,9 @@ public final class ToolString implements Serializable {
             }else {
                 return 0;
             }
-		} catch (Exception e){
-			return 0;
-		}
+        } catch (Exception e){
+            return 4;
+        }
 	}
 
     /**
@@ -446,6 +440,19 @@ public final class ToolString implements Serializable {
     }
 
     /**
+     * 解析json对象字符串
+    */
+    public final static JSONArray parseJsonArray(final String json){
+        final JSONArray array = new JSONArray();
+        if(json == null || json.length() <= 0) return array;
+        try {
+            return JSONObject.parseArray(json.trim());
+        } catch (Exception e){
+            return array;
+        }
+    }
+
+    /**
      * <strong style='color:#f69;'>解析json数组字符串,ArrayList里的HashMap的key未做处理</strong>
      * @提示 <strong style='color:#369;'>json对象就是以{"开头,即HashMap<String,String>;json数组就是以[{"开头,即ArrayList<HashMap<String,String>>;json全都是String</strong>
      * @作者 田应平
@@ -462,28 +469,6 @@ public final class ToolString implements Serializable {
         } catch (Exception e){
             return listResult;
         }
-    }
-
-    /**
-     * 解析json数组字符串,List里的PageFormData的key未做处理
-     * @param
-     * @作者 田应平
-     * @QQ 444141300
-     * @创建时间 2018年9月29日 13:52:54
-    */
-    public final static List<FormData> parseArrayPageFormData(final Object array){
-        final List<FormData> list = new ArrayList<FormData>();
-        if(isBlank(array)){return list;}
-        final JSONArray jsonArray = JSONArray.parseArray(array.toString());
-        for(int i = 0; i < jsonArray.size(); i++){
-            final JSONObject json = jsonArray.getJSONObject(i);
-            final FormData pageData = new FormData();
-            for(final String key : json.keySet()){
-                pageData.put(key,json.get(key));
-            }
-            list.add(pageData);
-        }
-        return list;
     }
 
     /**
