@@ -32,6 +32,7 @@ public class STOMPConnectEventListener  implements ApplicationListener<SessionCo
         //browser客户端登录连接
         final String agentId = sha.getNativeHeader("login").get(0);//客户端初始化连接,含认证信息
         final String sessionId = sha.getSessionId();
+        webAgentSessionRegistry.unregisterSessionId(agentId,sessionId);
         webAgentSessionRegistry.registerSessionId(agentId,sessionId);
     }
 }
